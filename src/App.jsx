@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
 import {
   intervalToDuration,
 } from "date-fns";
+import { galleryData } from "./data/galleryData";
 
 // -----------------------------------------------------------------------------
 // Notas de ESLint
