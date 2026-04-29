@@ -395,6 +395,13 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                       position: "relative",
                       zIndex: 1,
                       maxWidth: "100%",
+                      gridColumn:
+                        photos.length === 5 && idx === 3
+                          ? "1 / span 2"
+                          : photos.length === 5 && idx === 4
+                            ? "2 / span 2"
+                            : "auto",
+                      justifySelf: "center",
                     }}
                   >
                     <WoodFrame shape={v.shape} width={v.w} height={v.h}>
