@@ -26,12 +26,12 @@ const AUDIO_URL = "/galeria/audio/theme.mp3";
 // rotate: grados, w×h: tamaño del marco, offsetY: desplazamiento vertical,
 // shape: "normal" | "horizontal" | "oval"
 const PHOTO_VARIANTS = [
-  { rotate: -5, w: 125, h: 165, offsetY: -10, shape: "normal" },
-  { rotate: 3, w: 170, h: 115, offsetY: 8, shape: "horizontal" },
-  { rotate: -2, w: 118, h: 150, offsetY: 2, shape: "oval" },
-  { rotate: 4, w: 135, h: 175, offsetY: -4, shape: "normal" },
-  { rotate: -3, w: 150, h: 120, offsetY: 6, shape: "horizontal" },
-  { rotate: 2, w: 122, h: 160, offsetY: -7, shape: "normal" },
+  { rotate: -5, w: 150, h: 200, offsetY: -8, shape: "normal" },
+  { rotate: 3, w: 210, h: 145, offsetY: 6, shape: "horizontal" },
+  { rotate: -2, w: 145, h: 185, offsetY: 4, shape: "oval" },
+  { rotate: 4, w: 160, h: 205, offsetY: -5, shape: "normal" },
+  { rotate: -3, w: 190, h: 140, offsetY: 7, shape: "horizontal" },
+  { rotate: 2, w: 150, h: 195, offsetY: -6, shape: "normal" },
 ];
 
 // ─── CSS GLOBAL ───────────────────────────────────────────────────────────────
@@ -358,19 +358,19 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
             >
               Sala {roomIndex + 1}
             </h2>
-
-            {/* Fotos caóticas */}
+            {/* Fotos en mural */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-                gridAutoRows: "minmax(120px, auto)",
-                gap: "clamp(10px, 1.4vw, 18px)",
+                gridTemplateColumns: "repeat(3, minmax(150px, 1fr))",
+                gridTemplateRows: "repeat(2, minmax(180px, 1fr))",
+                gap: "22px 28px",
                 justifyItems: "center",
                 alignItems: "center",
-                width: "100%",
+                width: "92%",
+                maxWidth: 820,
                 flex: 1,
-                padding: "6px 10px 76px",
+                padding: "8px 18px 70px",
                 overflow: "hidden",
               }}
             >
@@ -390,7 +390,12 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                       transition: { duration: 0.18 },
                     }}
                     onClick={() => onPhotoClick(photo)}
-                    style={{ cursor: "pointer", flexShrink: 0, position: "relative", zIndex: 1 }}
+                    style={{
+                      cursor: "pointer",
+                      position: "relative",
+                      zIndex: 1,
+                      maxWidth: "100%",
+                    }}
                   >
                     <WoodFrame shape={v.shape} width={v.w} height={v.h}>
                       <img
