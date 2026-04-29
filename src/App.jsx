@@ -26,12 +26,12 @@ const AUDIO_URL = "/galeria/audio/theme.mp3";
 // rotate: grados, w×h: tamaño del marco, offsetY: desplazamiento vertical,
 // shape: "normal" | "horizontal" | "oval"
 const PHOTO_VARIANTS = [
-  { rotate: -5, w: 150, h: 200, offsetY: -8, shape: "normal" },
-  { rotate: 3, w: 210, h: 145, offsetY: 6, shape: "horizontal" },
-  { rotate: -2, w: 145, h: 185, offsetY: 4, shape: "oval" },
-  { rotate: 4, w: 160, h: 205, offsetY: -5, shape: "normal" },
-  { rotate: -3, w: 190, h: 140, offsetY: 7, shape: "horizontal" },
-  { rotate: 2, w: 150, h: 195, offsetY: -6, shape: "normal" },
+  { rotate: -5, w: 165, h: 220, offsetY: -8, shape: "normal" },
+  { rotate: 3, w: 230, h: 160, offsetY: 6, shape: "horizontal" },
+  { rotate: -2, w: 160, h: 205, offsetY: 4, shape: "oval" },
+  { rotate: 4, w: 175, h: 225, offsetY: -5, shape: "normal" },
+  { rotate: -3, w: 210, h: 155, offsetY: 7, shape: "horizontal" },
+  { rotate: 2, w: 165, h: 215, offsetY: -6, shape: "normal" },
 ];
 
 // ─── CSS GLOBAL ───────────────────────────────────────────────────────────────
