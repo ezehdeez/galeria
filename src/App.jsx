@@ -364,11 +364,11 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                 display: "grid",
                 gridTemplateColumns: "repeat(3, minmax(150px, 1fr))",
                 gridTemplateRows: "repeat(2, minmax(180px, 1fr))",
-                gap: "22px 28px",
+                gap: "28px 34px",
                 justifyItems: "center",
                 alignItems: "center",
-                width: "92%",
-                maxWidth: 820,
+                width: "88%",
+                maxWidth: 850,
                 flex: 1,
                 padding: "8px 18px 70px",
                 overflow: "hidden",
@@ -397,9 +397,9 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                       maxWidth: "100%",
                       gridColumn:
                         photos.length === 5 && idx === 3
-                          ? "1 / span 2"
+                          ? "1 / 3"
                           : photos.length === 5 && idx === 4
-                            ? "2 / span 2"
+                            ? "3 / 4"
                             : "auto",
                       justifySelf: "center",
                     }}
