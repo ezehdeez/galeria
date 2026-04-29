@@ -18,7 +18,7 @@ const _motionIsUsed = motion;
 // ─── CONFIGURACIÓN ────────────────────────────────────────────────────────────
 const START_DATE = new Date(2023, 2, 26);
 // Utilizamos una pieza de piano más tranquila para un ambiente de aniversario.
-const AUDIO_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3";
+const AUDIO_URL = "/galeria/audio/theme.mp3";
 
 // ─── DATOS: FOTOS + TEXTO PERSONALIZADO ───────────────────────────────────────
 // Cambia las URLs por tus propias fotos y los captions por tus textos
