@@ -26,10 +26,12 @@ const AUDIO_URL = "/galeria/audio/theme.mp3";
 // rotate: grados, w×h: tamaño del marco, offsetY: desplazamiento vertical,
 // shape: "normal" | "horizontal" | "oval"
 const PHOTO_VARIANTS = [
-  { rotate: -6,   w: 170, h: 225, offsetY: -35, shape: "normal"     },
-  { rotate:  2.5, w: 255, h: 170, offsetY:  28, shape: "horizontal" },
-  { rotate: -1.5, w: 155, h: 205, offsetY: -12, shape: "oval"       },
-  { rotate:  5,   w: 190, h: 245, offsetY:  40, shape: "normal"     },
+  { rotate: -5, w: 125, h: 165, offsetY: -10, shape: "normal" },
+  { rotate: 3, w: 170, h: 115, offsetY: 8, shape: "horizontal" },
+  { rotate: -2, w: 118, h: 150, offsetY: 2, shape: "oval" },
+  { rotate: 4, w: 135, h: 175, offsetY: -4, shape: "normal" },
+  { rotate: -3, w: 150, h: 120, offsetY: 6, shape: "horizontal" },
+  { rotate: 2, w: 122, h: 160, offsetY: -7, shape: "normal" },
 ];
 
 // ─── CSS GLOBAL ───────────────────────────────────────────────────────────────
@@ -298,7 +300,20 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           style={{
             position: "absolute", inset: 0,
             display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden", background: "#FAFAFA",
+            overflow: "hidden", 
+            background: `
+            radial-gradient(circle at 18% 22%, rgba(255,255,255,0.55) 0%, transparent 28%),
+            radial-gradient(circle at 82% 18%, rgba(255,255,255,0.38) 0%, transparent 30%),
+            linear-gradient(115deg, rgba(0,0,0,0.035) 0%, transparent 24%, transparent 76%, rgba(0,0,0,0.045) 100%),
+            repeating-linear-gradient(
+              90deg,
+              rgba(120,95,70,0.025) 0px,
+              rgba(120,95,70,0.025) 1px,
+              transparent 1px,
+              transparent 7px
+            ),
+            #EFE8DE
+          `,
           }}
         >
           {/* Diagonales de perspectiva en viewBox 0-100 para que se calculen bien */}
@@ -330,6 +345,7 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
               boxShadow: "0 26px 70px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.28)",
               display: "flex", flexDirection: "column",
               alignItems: "center", padding: "20px 26px",
+              overflow: "hidden",
             }}
           >
             <h2
@@ -344,7 +360,20 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
             </h2>
 
             {/* Fotos caóticas */}
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", alignItems: "center", flex: 1 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+                gridAutoRows: "minmax(120px, auto)",
+                gap: "clamp(10px, 1.4vw, 18px)",
+                justifyItems: "center",
+                alignItems: "center",
+                width: "100%",
+                flex: 1,
+                padding: "6px 10px 76px",
+                overflow: "hidden",
+              }}
+            >
               {photos.map((photo, idx) => {
                 const v = rotatedVariants[idx % rotatedVariants.length];
                 return (
@@ -353,7 +382,13 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                     initial={{ opacity: 0, y: 50, rotate: v.rotate * 0.4 }}
                     animate={{ opacity: 1, y: v.offsetY, rotate: v.rotate }}
                     transition={{ delay: idx * 0.13, duration: 0.6, type: "spring", damping: 16 }}
-                    whileHover={{ scale: 1.07, y: v.offsetY - 9, rotate: v.rotate * 0.25, zIndex: 10, transition: { duration: 0.18 } }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: v.offsetY - 4,
+                      rotate: v.rotate * 0.25,
+                      zIndex: 10,
+                      transition: { duration: 0.18 },
+                    }}
                     onClick={() => onPhotoClick(photo)}
                     style={{ cursor: "pointer", flexShrink: 0, position: "relative", zIndex: 1 }}
                   >
