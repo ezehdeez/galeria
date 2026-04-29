@@ -3,7 +3,7 @@ export const galleryData = [
   [
     {
       url: "/galeria/fotos/sala1/foto1.jpg",
-      caption: "Texto para la foto 1 de la sala 1.",
+      caption: "Test.",
     },
     {
       url: "/galeria/fotos/sala1/foto2.jpg",
