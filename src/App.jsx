@@ -126,7 +126,10 @@ function Lightbox({ photo, onClose }) {
           style={{
             position: "fixed", inset: 0, zIndex: 200,
             background: "rgba(0,0,0,0.9)",
-            display: "flex", alignItems: "center", justifyContent: "center",
+            display: "flex",
+            flexDirection: window.innerWidth <= 768 ? "column" : "row",
+            alignItems: "stretch",
+            justifyContent: "center",
           }}
         >
           <motion.div
@@ -151,15 +154,16 @@ function Lightbox({ photo, onClose }) {
               alt="Foto ampliada"
               style={{
                 display: "block",
-                maxWidth: "58vw",
-                maxHeight: "80vh",
+                maxWidth: window.innerWidth <= 768 ? "92vw" : "58vw",
+                maxHeight: window.innerWidth <= 768 ? "58vh" : "80vh",
                 objectFit: "cover",
               }}
             />
             {/* Panel lateral con texto */}
             <div
               style={{
-                width: 260, minWidth: 220,
+                width: window.innerWidth <= 768 ? "92vw" : 260,
+                minWidth: window.innerWidth <= 768 ? "auto" : 220,
                 background: "#180E04",
                 display: "flex", flexDirection: "column",
                 justifyContent: "center",
@@ -276,8 +280,10 @@ function WelcomeOverlay({ isVisible, onEnter }) {
 
 // ─── SALA DEL MUSEO ───────────────────────────────────────────────────────────
 function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
-  // Dimensiones de la pared en % → para calcular las diagonales exactas
-  const W = 68, H = 78;
+  const isMobile = window.innerWidth <= 768;
+
+  const W = isMobile ? 92 : 68;
+  const H = isMobile ? 88 : 78;
   const wallL = (100 - W) / 2;  // 16
   const wallR = wallL + W;       // 84
   const wallT = (100 - H) / 2;  // 11
@@ -299,8 +305,10 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           transition={{ duration: 0.6 }}
           style={{
             position: "absolute", inset: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden", 
+            display: "flex", alignItems: "center",
+            justifyContent: isMobile ? "flex-start" : "center",
+            padding: isMobile ? "18px 0 96px" : 0,
+            overflow: isMobile ? "auto" : "hidden", 
             background: `
             radial-gradient(circle at 18% 22%, rgba(255,255,255,0.55) 0%, transparent 28%),
             radial-gradient(circle at 82% 18%, rgba(255,255,255,0.38) 0%, transparent 30%),
@@ -339,12 +347,14 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
               // wallR values no longer correspond to the actual edges of the
               // element.
               width: `${W}%`,
-              height: `${H}%`,
+              height: isMobile ? "auto" : `${H}%`,
+              minHeight: isMobile ? "calc(100vh - 120px)" : "auto",
               background: "linear-gradient(180deg, #D40000 0%, #B50000 60%, #9A0000 100%)",
               borderRadius: 3,
               boxShadow: "0 26px 70px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.28)",
               display: "flex", flexDirection: "column",
-              alignItems: "center", padding: "20px 26px",
+              alignItems: "center", 
+              padding: isMobile ? "18px 12px 92px" : "20px 26px",
               overflow: "hidden",
             }}
           >
@@ -359,23 +369,28 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
               Sala {roomIndex + 1}
             </h2>
             {/* Fotos en mural */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(150px, 1fr))",
-                gridTemplateRows: "repeat(2, minmax(180px, 1fr))",
-                gap: "28px 34px",
-                justifyItems: "center",
-                alignItems: "center",
-                width: "88%",
-                maxWidth: 850,
-                flex: 1,
-                padding: "8px 18px 70px",
-                overflow: "hidden",
-              }}
-            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile
+                    ? "repeat(2, minmax(120px, 1fr))"
+                    : "repeat(3, minmax(150px, 1fr))",
+                  gridTemplateRows: isMobile
+                    ? "none"
+                    : "repeat(2, minmax(180px, 1fr))",
+                  gap: isMobile ? "18px 12px" : "28px 34px",
+                  justifyItems: "center",
+                  alignItems: "center",
+                  width: isMobile ? "100%" : "88%",
+                  maxWidth: isMobile ? "100%" : 850,
+                  flex: 1,
+                  padding: isMobile ? "8px 4px 40px" : "8px 18px 70px",
+                  overflow: "hidden",
+                }}
+              >
               {photos.map((photo, idx) => {
                 const v = rotatedVariants[idx % rotatedVariants.length];
+                const frameScale = isMobile ? 0.72 : 1;
                 return (
                   <motion.div
                     key={idx}
@@ -396,15 +411,19 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                       zIndex: 1,
                       maxWidth: "100%",
                       gridColumn:
-                        photos.length === 5 && idx === 3
+                        !isMobile && photos.length === 5 && idx === 3
                           ? "1 / 3"
-                          : photos.length === 5 && idx === 4
+                          : !isMobile && photos.length === 5 && idx === 4
                             ? "3 / 4"
                             : "auto",
                       justifySelf: "center",
                     }}
                   >
-                    <WoodFrame shape={v.shape} width={v.w} height={v.h}>
+                    <WoodFrame
+                      shape={v.shape}
+                      width={v.w * frameScale}
+                      height={v.h * frameScale}
+                    >
                       <img
                         src={photo.url}
                         alt={`Foto ${idx + 1}`}
@@ -440,8 +459,11 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
 function NavigationControls({ currentRoom, totalRooms, onPrevRoom, onNextRoom, onTimerClick }) {
   const canGoPrev = currentRoom > 0;
   const canGoNext = currentRoom < totalRooms - 1;
+  const isMobile = window.innerWidth <= 768;
   const navBtn = (ok) => ({
-    width: 56, height: 56, borderRadius: "50%",
+    width: isMobile ? 48 : 56,
+    height: isMobile ? 48 : 56,
+    borderRadius: "50%",
     border: "1px solid rgba(0,0,0,0.1)",
     display: "flex", alignItems: "center", justifyContent: "center",
     cursor: ok ? "pointer" : "not-allowed", opacity: ok ? 1 : 0.38,
@@ -459,8 +481,12 @@ function NavigationControls({ currentRoom, totalRooms, onPrevRoom, onNextRoom, o
         whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.93 }}
         onClick={onTimerClick}
         style={{
-          position: "fixed", bottom: 32, left: 32, zIndex: 50,
-          width: 64, height: 64, borderRadius: "50%",
+          position: "fixed", zIndex: 50,
+          width: isMobile ? 54 : 64,
+          height: isMobile ? 54 : 64,
+          bottom: isMobile ? 18 : 32,
+          left: isMobile ? 18 : 32,
+          borderRadius: "50%",
           border: "2px solid rgba(255,255,255,0.12)",
           display: "flex", alignItems: "center", justifyContent: "center",
           cursor: "pointer",
