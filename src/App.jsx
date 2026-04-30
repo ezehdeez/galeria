@@ -14,6 +14,17 @@ import { galleryData } from "./data/galleryData";
 // una constante para que cuente como usado y así evitar falsos positivos de
 // la regla `no-unused-vars`.
 const _motionIsUsed = motion;
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return isMobile;
+}
 
 // ─── CONFIGURACIÓN ────────────────────────────────────────────────────────────
 const START_DATE = new Date(2023, 2, 26);
@@ -278,12 +289,71 @@ function WelcomeOverlay({ isVisible, onEnter }) {
   );
 }
 
+function RoomDecor({ isMobile }) {
+  const columnStyle = (side) => ({
+    position: "absolute",
+    top: isMobile ? 16 : 34,
+    bottom: isMobile ? 16 : 34,
+    [side]: isMobile ? 4 : 38,
+    width: isMobile ? 18 : 34,
+    borderRadius: 999,
+    background: `
+      linear-gradient(90deg, rgba(255,255,255,0.45), rgba(196,170,125,0.65), rgba(92,62,35,0.25)),
+      repeating-linear-gradient(0deg, rgba(80,55,35,0.16) 0px, rgba(80,55,35,0.16) 2px, transparent 2px, transparent 12px)
+    `,
+    boxShadow: "inset 0 0 18px rgba(0,0,0,0.18), 0 12px 28px rgba(0,0,0,0.18)",
+    opacity: isMobile ? 0.45 : 0.75,
+    pointerEvents: "none",
+    zIndex: 0,
+  });
+
+  const lampStyle = (side) => ({
+    position: "absolute",
+    top: isMobile ? 72 : 98,
+    [side]: isMobile ? 28 : 96,
+    width: isMobile ? 30 : 42,
+    height: isMobile ? 52 : 70,
+    pointerEvents: "none",
+    zIndex: 2,
+  });
+
+  return (
+    <>
+      <div style={columnStyle("left")} />
+      <div style={columnStyle("right")} />
+
+      {["left", "right"].map((side) => (
+        <div key={side} style={lampStyle(side)}>
+          <div
+            style={{
+              width: "100%",
+              height: isMobile ? 22 : 30,
+              borderRadius: "50% 50% 38% 38%",
+              background: "linear-gradient(180deg, #F7DE91, #A97824)",
+              boxShadow: "0 0 28px rgba(255,204,92,0.7)",
+            }}
+          />
+          <div
+            style={{
+              width: 4,
+              height: isMobile ? 24 : 34,
+              margin: "0 auto",
+              background: "linear-gradient(180deg, #B18A3A, #5A3410)",
+              borderRadius: 999,
+            }}
+          />
+        </div>
+      ))}
+    </>
+  );
+}
+
 // ─── SALA DEL MUSEO ───────────────────────────────────────────────────────────
 function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
 
-  const W = isMobile ? 92 : 68;
-  const H = isMobile ? 88 : 78;
+  const W = isMobile ? 94 : 68;
+  const H = isMobile ? 92 : 78;
   const wallL = (100 - W) / 2;  // 16
   const wallR = wallL + W;       // 84
   const wallT = (100 - H) / 2;  // 11
@@ -305,10 +375,11 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           transition={{ duration: 0.6 }}
           style={{
             position: "absolute", inset: 0,
-            display: "flex", alignItems: "center",
-            justifyContent: isMobile ? "flex-start" : "center",
-            padding: isMobile ? "18px 0 96px" : 0,
+            display: "flex", 
             overflow: isMobile ? "auto" : "hidden", 
+            padding: isMobile ? "14px 0 96px" : 0,
+            alignItems: "center",
+            justifyContent: isMobile ? "flex-start" : "center",
             background: `
             radial-gradient(circle at 18% 22%, rgba(255,255,255,0.55) 0%, transparent 28%),
             radial-gradient(circle at 82% 18%, rgba(255,255,255,0.38) 0%, transparent 30%),
@@ -324,6 +395,7 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           `,
           }}
         >
+        <RoomDecor isMobile={isMobile} />
           {/* Diagonales de perspectiva en viewBox 0-100 para que se calculen bien */}
           <svg
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}
@@ -348,13 +420,13 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
               // element.
               width: `${W}%`,
               height: isMobile ? "auto" : `${H}%`,
-              minHeight: isMobile ? "calc(100vh - 120px)" : "auto",
+              minHeight: isMobile ? "calc(100vh - 110px)" : "auto",
               background: "linear-gradient(180deg, #D40000 0%, #B50000 60%, #9A0000 100%)",
               borderRadius: 3,
               boxShadow: "0 26px 70px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.28)",
               display: "flex", flexDirection: "column",
               alignItems: "center", 
-              padding: isMobile ? "18px 12px 92px" : "20px 26px",
+              padding: isMobile ? "18px 10px 76px" : "20px 26px",
               overflow: "hidden",
             }}
           >
