@@ -290,6 +290,9 @@ function WelcomeOverlay({ isVisible, onEnter }) {
 }
 
 function RoomDecor({ isMobile }) {
+  if (isMobile) {
+    return null;
+  }
   const pilasterStyle = (side) => ({
     position: "absolute",
     top: isMobile ? 20 : 48,
@@ -445,9 +448,10 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           transition={{ duration: 0.6 }}
           style={{
             position: "absolute", inset: 0,
-            display: "flex", 
-            overflow: isMobile ? "auto" : "hidden", 
-            padding: isMobile ? "14px 0 96px" : 0,
+            display: "flex",
+            flexDirection: "column",
+            overflow: isMobile ? "auto" : "hidden",
+            padding: isMobile ? "12px 0 112px" : 0,
             alignItems: "center",
             justifyContent: isMobile ? "flex-start" : "center",
             background: `
@@ -467,7 +471,15 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
         <RoomDecor isMobile={isMobile} />
           {/* Diagonales de perspectiva en viewBox 0-100 para que se calculen bien */}
           <svg
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: "none",
+              zIndex: 0,
+              display: isMobile ? "none" : "block",
+            }}
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
@@ -481,30 +493,24 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
           <div
             style={{
               position: "relative", zIndex: 1,
-              // Maintain the wall width purely as a percentage of the viewport so that
-              // the perspective lines drawn in the SVG line up perfectly with the
-              // corners of the wall. Removing the fixed maxWidth eliminates
-              // discrepancies on larger screens where the calculated wallL and
-              // wallR values no longer correspond to the actual edges of the
-              // element.
-              width: `${W}%`,
+              width: isMobile ? "min(94vw, 430px)" : `${W}%`,
               height: isMobile ? "auto" : `${H}%`,
-              minHeight: isMobile ? "calc(100vh - 110px)" : "auto",
+              minHeight: isMobile ? "auto" : "auto",
               background: "linear-gradient(180deg, #D40000 0%, #B50000 60%, #9A0000 100%)",
-              borderRadius: 3,
+              borderRadius: isMobile ? 8 : 3,
               boxShadow: "0 26px 70px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.28)",
               display: "flex", flexDirection: "column",
               alignItems: "center", 
-              padding: isMobile ? "18px 10px 76px" : "20px 26px",
+              padding: isMobile ? "16px 10px 54px" : "20px 26px",
               overflow: "hidden",
             }}
           >
             <h2
               className="font-heading"
               style={{
-                fontSize: 24, color: "#D4AF37",
+                fontSize: isMobile ? 20 : 24, color: "#D4AF37",
                 textShadow: "0 2px 10px rgba(0,0,0,0.55)",
-                letterSpacing: "0.18em", marginBottom: 14, flexShrink: 0,
+                letterSpacing: "0.18em", marginBottom: isMobile ? 18 : 14, flexShrink: 0,
               }}
             >
               Sala {roomIndex + 1}
@@ -514,24 +520,24 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                 style={{
                   display: "grid",
                   gridTemplateColumns: isMobile
-                    ? "repeat(2, minmax(120px, 1fr))"
+                    ? "repeat(2, minmax(0, 1fr))"
                     : "repeat(3, minmax(150px, 1fr))",
                   gridTemplateRows: isMobile
                     ? "none"
                     : "repeat(2, minmax(180px, 1fr))",
-                  gap: isMobile ? "18px 12px" : "28px 34px",
+                  gap: isMobile ? "22px 8px" : "28px 34px",
                   justifyItems: "center",
                   alignItems: "center",
-                  width: isMobile ? "100%" : "88%",
-                  maxWidth: isMobile ? "100%" : 850,
-                  flex: 1,
-                  padding: isMobile ? "8px 4px 40px" : "8px 18px 70px",
-                  overflow: "hidden",
+                  width: "100%",
+                  maxWidth: isMobile ? 390 : 850,
+                  flex: isMobile ? "initial" : 1,
+                  padding: isMobile ? "4px 2px 28px" : "8px 18px 70px",
+                  overflow: "visible",
                 }}
               >
               {photos.map((photo, idx) => {
                 const v = rotatedVariants[idx % rotatedVariants.length];
-                const frameScale = isMobile ? 0.72 : 1;
+                const frameScale = isMobile ? 0.58 : 1;
                 return (
                   <motion.div
                     key={idx}
@@ -551,6 +557,7 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
                       position: "relative",
                       zIndex: 1,
                       maxWidth: "100%",
+                      transformOrigin: "center center",
                       gridColumn:
                         !isMobile && photos.length === 5 && idx === 3
                           ? "1 / 3"
@@ -642,7 +649,7 @@ function NavigationControls({ currentRoom, totalRooms, onPrevRoom, onNextRoom, o
       <motion.div
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
         style={{
-          position: "fixed", bottom: 32, left: "50%", transform: "translateX(-50%)", zIndex: 50,
+          position: "fixed", bottom: isMobile ? 22 : 32, left: "50%", transform: "translateX(-50%)", zIndex: 50,
           padding: "0.65rem 1.35rem", borderRadius: 50,
           background: "rgba(255,255,255,0.92)", backdropFilter: "blur(12px)",
           border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 18px rgba(0,0,0,0.1)",
@@ -664,7 +671,7 @@ function NavigationControls({ currentRoom, totalRooms, onPrevRoom, onNextRoom, o
 
       <motion.div
         initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
-        style={{ position: "fixed", bottom: 32, right: 32, zIndex: 50, display: "flex", gap: 12 }}
+        style={{ position: "fixed", bottom: isMobile ? 18 : 32, right: isMobile ? 18 : 32, zIndex: 50, display: "flex", gap: isMobile ? 10 : 12 }}
       >
         <motion.button whileHover={{ scale: canGoPrev ? 1.1 : 1 }} whileTap={{ scale: canGoPrev ? 0.93 : 1 }}
           onClick={onPrevRoom} disabled={!canGoPrev} style={navBtn(canGoPrev)}>
