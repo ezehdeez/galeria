@@ -290,56 +290,126 @@ function WelcomeOverlay({ isVisible, onEnter }) {
 }
 
 function RoomDecor({ isMobile }) {
-  const columnStyle = (side) => ({
+  const pilasterStyle = (side) => ({
     position: "absolute",
-    top: isMobile ? 16 : 34,
-    bottom: isMobile ? 16 : 34,
-    [side]: isMobile ? 4 : 38,
-    width: isMobile ? 18 : 34,
-    borderRadius: 999,
+    top: isMobile ? 20 : 48,
+    bottom: isMobile ? 20 : 48,
+    [side]: isMobile ? 8 : 48,
+    width: isMobile ? 16 : 40,
+    borderRadius: "18px",
     background: `
-      linear-gradient(90deg, rgba(255,255,255,0.45), rgba(196,170,125,0.65), rgba(92,62,35,0.25)),
-      repeating-linear-gradient(0deg, rgba(80,55,35,0.16) 0px, rgba(80,55,35,0.16) 2px, transparent 2px, transparent 12px)
+      linear-gradient(
+        90deg,
+        rgba(255,255,255,0.86) 0%,
+        rgba(239,226,205,0.94) 24%,
+        rgba(198,170,124,0.48) 52%,
+        rgba(239,226,205,0.94) 78%,
+        rgba(255,255,255,0.78) 100%
+      )
     `,
-    boxShadow: "inset 0 0 18px rgba(0,0,0,0.18), 0 12px 28px rgba(0,0,0,0.18)",
-    opacity: isMobile ? 0.45 : 0.75,
+    boxShadow: `
+      inset 8px 0 14px rgba(255,255,255,0.42),
+      inset -8px 0 16px rgba(95,62,32,0.14),
+      0 14px 28px rgba(70,45,22,0.10)
+    `,
+    opacity: isMobile ? 0.22 : 0.38,
     pointerEvents: "none",
     zIndex: 0,
   });
 
+  const capStyle = (side, vertical) => ({
+    position: "absolute",
+    [side]: isMobile ? 4 : 40,
+    [vertical]: isMobile ? 14 : 38,
+    width: isMobile ? 24 : 56,
+    height: isMobile ? 7 : 11,
+    borderRadius: "999px",
+    background: "linear-gradient(180deg, #fff7e7 0%, #c8aa74 100%)",
+    boxShadow: "0 8px 18px rgba(90,60,30,0.10)",
+    opacity: isMobile ? 0.25 : 0.42,
+    pointerEvents: "none",
+    zIndex: 1,
+  });
+
   const lampStyle = (side) => ({
     position: "absolute",
-    top: isMobile ? 72 : 98,
-    [side]: isMobile ? 28 : 96,
-    width: isMobile ? 30 : 42,
-    height: isMobile ? 52 : 70,
+    top: isMobile ? 74 : 116,
+    [side]: isMobile ? 30 : 108,
+    width: isMobile ? 34 : 54,
+    height: isMobile ? 46 : 62,
     pointerEvents: "none",
     zIndex: 2,
   });
 
   return (
     <>
-      <div style={columnStyle("left")} />
-      <div style={columnStyle("right")} />
+      <div style={pilasterStyle("left")} />
+      <div style={pilasterStyle("right")} />
+      <div style={capStyle("left", "top")} />
+      <div style={capStyle("left", "bottom")} />
+      <div style={capStyle("right", "top")} />
+      <div style={capStyle("right", "bottom")} />
 
       {["left", "right"].map((side) => (
         <div key={side} style={lampStyle(side)}>
           <div
             style={{
-              width: "100%",
-              height: isMobile ? 22 : 30,
-              borderRadius: "50% 50% 38% 38%",
-              background: "linear-gradient(180deg, #F7DE91, #A97824)",
-              boxShadow: "0 0 28px rgba(255,204,92,0.7)",
+              position: "absolute",
+              left: "50%",
+              top: isMobile ? 4 : 2,
+              transform: "translateX(-50%)",
+              width: isMobile ? 62 : 92,
+              height: isMobile ? 62 : 92,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(255,210,110,0.28) 0%, rgba(255,210,110,0.10) 38%, transparent 72%)",
+              filter: "blur(2px)",
             }}
           />
+
           <div
             style={{
-              width: 4,
-              height: isMobile ? 24 : 34,
-              margin: "0 auto",
-              background: "linear-gradient(180deg, #B18A3A, #5A3410)",
-              borderRadius: 999,
+              position: "absolute",
+              left: "50%",
+              top: 0,
+              transform: "translateX(-50%)",
+              width: isMobile ? 28 : 38,
+              height: isMobile ? 24 : 30,
+              borderRadius: "50% 50% 42% 42%",
+              background: "linear-gradient(180deg, #ffe7a3 0%, #d6a94b 55%, #8b5b1f 100%)",
+              boxShadow: `
+                inset 0 3px 8px rgba(255,255,255,0.45),
+                inset 0 -6px 10px rgba(70,40,10,0.22),
+                0 0 20px rgba(255,198,85,0.40)
+              `,
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: isMobile ? 23 : 29,
+              transform: "translateX(-50%)",
+              width: isMobile ? 5 : 6,
+              height: isMobile ? 24 : 32,
+              borderRadius: "999px",
+              background: "linear-gradient(180deg, #b98b3a 0%, #5a3410 100%)",
+              boxShadow: "inset 1px 0 2px rgba(255,255,255,0.25)",
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: 0,
+              transform: "translateX(-50%)",
+              width: isMobile ? 18 : 24,
+              height: isMobile ? 7 : 9,
+              borderRadius: "999px",
+              background: "linear-gradient(180deg, #d0a14a 0%, #704010 100%)",
+              boxShadow: "0 4px 8px rgba(70,40,10,0.18)",
             }}
           />
         </div>
@@ -381,18 +451,17 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
             alignItems: "center",
             justifyContent: isMobile ? "flex-start" : "center",
             background: `
-            radial-gradient(circle at 18% 22%, rgba(255,255,255,0.55) 0%, transparent 28%),
-            radial-gradient(circle at 82% 18%, rgba(255,255,255,0.38) 0%, transparent 30%),
-            linear-gradient(115deg, rgba(0,0,0,0.035) 0%, transparent 24%, transparent 76%, rgba(0,0,0,0.045) 100%),
-            repeating-linear-gradient(
-              90deg,
-              rgba(120,95,70,0.025) 0px,
-              rgba(120,95,70,0.025) 1px,
-              transparent 1px,
-              transparent 7px
-            ),
-            #EFE8DE
-          `,
+              radial-gradient(circle at 18% 18%, rgba(255,255,255,0.65) 0%, transparent 26%),
+              radial-gradient(circle at 82% 12%, rgba(255,245,220,0.45) 0%, transparent 28%),
+              repeating-linear-gradient(
+                90deg,
+                rgba(115,85,55,0.020) 0px,
+                rgba(115,85,55,0.020) 1px,
+                transparent 1px,
+                transparent 8px
+              ),
+              linear-gradient(135deg, #F4EDE3 0%, #E8DDCF 100%)
+            `,
           }}
         >
         <RoomDecor isMobile={isMobile} />
@@ -402,10 +471,10 @@ function MuseumRoom({ photos, roomIndex, isActive, onPhotoClick }) {
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
-            <line x1="0"   y1="0"   x2={wallL} y2={wallT} stroke="rgba(0,0,0,0.09)" strokeWidth="0.25" />
-            <line x1="100" y1="0"   x2={wallR} y2={wallT} stroke="rgba(0,0,0,0.09)" strokeWidth="0.25" />
-            <line x1="0"   y1="100" x2={wallL} y2={wallB} stroke="rgba(0,0,0,0.09)" strokeWidth="0.25" />
-            <line x1="100" y1="100" x2={wallR} y2={wallB} stroke="rgba(0,0,0,0.09)" strokeWidth="0.25" />
+            <line x1="0"   y1="0"   x2={wallL} y2={wallT} stroke="rgba(80,55,35,0.07)" strokeWidth="0.25" />
+            <line x1="100" y1="0"   x2={wallR} y2={wallT} stroke="rgba(80,55,35,0.07)" strokeWidth="0.25" />
+            <line x1="0"   y1="100" x2={wallL} y2={wallB} stroke="rgba(80,55,35,0.07)" strokeWidth="0.25" />
+            <line x1="100" y1="100" x2={wallR} y2={wallB} stroke="rgba(80,55,35,0.07)" strokeWidth="0.25" />
           </svg>
 
           {/* Pared roja */}
