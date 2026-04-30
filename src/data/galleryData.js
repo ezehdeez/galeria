@@ -1,25 +1,25 @@
 export const galleryData = [
-  // Sala 1
+  // Sala 1 
   [
     {
       url: "/galeria/fotos/sala1/foto1.jpg",
-      caption: "Test.",
+      caption: "Vamo a hacerlo como si no importara, como como si el mundo se acabara",
     },
     {
       url: "/galeria/fotos/sala1/foto2.jpg",
-      caption: "Texto para la foto 2 de la sala 1.",
+      caption: "foto de perfil histórica, yo siempre en segundo plano, me opaca tanto brillo que desprendes",
     },
     {
       url: "/galeria/fotos/sala1/foto3.jpg",
-      caption: "Texto para la foto 3 de la sala 1.",
+      caption: "DÍA INCREÍBLE, VAYA FIN DE AÑO",
     },
     {
       url: "/galeria/fotos/sala1/foto4.jpg",
-      caption: "Texto para la foto 4 de la sala 1.",
+      caption: "Mi foto favorita, la imprimí y todo, pa llevarte conmigo",
     },
     {
       url: "/galeria/fotos/sala1/foto5.jpg",
-      caption: "Texto para la foto 5 de la sala 1.",
+      caption: "Readys pal peor RBF de la historia FUEGUITO FUEGUITO",
     },
   ],
 
@@ -27,23 +27,23 @@ export const galleryData = [
   [
     {
       url: "/galeria/fotos/sala2/foto1.jpg",
-      caption: "Texto para la foto 1 de la sala 2.",
+      caption: "Tú saliendo en una foto bien, COMO SIEMPREEE",
     },
     {
       url: "/galeria/fotos/sala2/foto2.jpg",
-      caption: "Texto para la foto 2 de la sala 2.",
+      caption: "comer papitas = felicidad",
     },
     {
       url: "/galeria/fotos/sala2/foto3.jpg",
-      caption: "Texto para la foto 3 de la sala 2.",
+      caption: "Foto linda, nuestro primer año nuevo juntos",
     },
     {
       url: "/galeria/fotos/sala2/foto4.jpg",
-      caption: "Texto para la foto 4 de la sala 2.",
+      caption: "Borrachina y feliz",
     },
     {
       url: "/galeria/fotos/sala2/foto5.jpg",
-      caption: "Texto para la foto 5 de la sala 2.",
+      caption: "Vaya face card, está todo pagado con esa carita",
     },
   ],
 
@@ -51,23 +51,23 @@ export const galleryData = [
   [
     {
       url: "/galeria/fotos/sala3/foto1.jpg",
-      caption: "Texto para la foto 1 de la sala 3.",
+      caption: "QUE FOTO TAN PUTAMENTE LINDA",
     },
     {
       url: "/galeria/fotos/sala3/foto2.jpg",
-      caption: "Texto para la foto 2 de la sala 3.",
+      caption: "Un día sacamos esta foto, y bueno, el resto es historia...",
     },
     {
       url: "/galeria/fotos/sala3/foto3.jpg",
-      caption: "Texto para la foto 3 de la sala 3.",
+      caption: "Todas mi razones de vivir unidas en una sola foto",
     },
     {
       url: "/galeria/fotos/sala3/foto4.jpg",
-      caption: "Texto para la foto 4 de la sala 3.",
+      caption: "Una de miles de fotos en un probador",
     },
     {
       url: "/galeria/fotos/sala3/foto5.jpg",
-      caption: "Texto para la foto 5 de la sala 3.",
+      caption: "¿¿En el mercho escuchando ferxxo??",
     },
   ],
 
@@ -75,27 +75,27 @@ export const galleryData = [
   [
     {
       url: "/galeria/fotos/sala4/foto1.jpg",
-      caption: "Texto para la foto 1 de la sala 4.",
+      caption: "Foto manita",
     },
     {
       url: "/galeria/fotos/sala4/foto2.jpg",
-      caption: "Texto para la foto 2 de la sala 4.",
+      caption: "Otra de mis fotos favoritas, QUE BIEN NOS LO PASAMOS ESE DÍA",
     },
     {
       url: "/galeria/fotos/sala4/foto3.jpg",
-      caption: "Texto para la foto 3 de la sala 4.",
+      caption: "Rescatando a mi reina",
     },
     {
       url: "/galeria/fotos/sala4/foto4.jpg",
-      caption: "Texto para la foto 4 de la sala 4.",
+      caption: "¿¿?? esta se puso sola",
     },
     {
       url: "/galeria/fotos/sala4/foto5.jpg",
-      caption: "Texto para la foto 5 de la sala 4.",
+      caption: "1 mujes vs 9 nuggets de pollo (4,5)",
     },
     {
       url: "/galeria/fotos/sala4/foto6.jpg",
-      caption: "Texto para la foto 6 de la sala 4.",
+      caption: "Mi reinota",
     },
   ],
 ];
